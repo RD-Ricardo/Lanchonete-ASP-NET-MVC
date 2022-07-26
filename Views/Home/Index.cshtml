@@ -1,0 +1,14 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Lanches Preferidos</h1>
+
+<div class="row">
+    @foreach (var item in Model.LanchesPreferidos)
+    {
+        <partial name="_LanchesResumo" for="@item"/>
+    }
+</div>
+<partial name="_Carousel"/>

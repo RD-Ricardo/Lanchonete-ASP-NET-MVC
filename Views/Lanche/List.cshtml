@@ -1,0 +1,13 @@
+@model Lanchonete_ASP_NET_MVC.ViewModels.LanchesListViewModel
+@{
+    ViewData["Title"] = "Lista Lanches";
+}
+
+<div class="container">
+   <div class="row">    
+    @foreach (var item in Model.Lanches)
+    {
+       <partial name="_LanchesResumo" for="@item"></partial>
+    }
+   </div>
+</div>
