@@ -1,0 +1,28 @@
+using Lanchonete_ASP_NET_MVC.Models;
+using Lanchonete_ASP_NET_MVC.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Lanchonete_ASP_NET_MVC.components
+{
+    public class CarrinhoCompraResumo : ViewComponent
+    {
+        private readonly CarrinhoCompra _carrinhoCompra;
+        public CarrinhoCompraResumo(CarrinhoCompra carrinhoCompra)
+        {
+            _carrinhoCompra = carrinhoCompra;
+        }
+
+        public IViewComponentResult Invoke()
+        {
+            var itens = _carrinhoCompra.GetCarrinhoCompraItens();
+            _carrinhoCompra.CarrinhoCompraItems = itens;
+
+            var carrinhoCompraViewModel = new CarrinhoCompraViewModel()
+            {
+                CarrinhoCompra = _carrinhoCompra,
+                CarrinhoCompraTotal = _carrinhoCompra.GetCarrinhoCompraTotal()
+            };
+            return View(carrinhoCompraViewModel);
+        }
+    }
+}
