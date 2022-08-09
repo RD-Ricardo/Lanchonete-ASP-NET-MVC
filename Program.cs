@@ -2,11 +2,16 @@ using Lanchonete_ASP_NET_MVC.Db;
 using Lanchonete_ASP_NET_MVC.Models;
 using Lanchonete_ASP_NET_MVC.Repositories;
 using Lanchonete_ASP_NET_MVC.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(c => c.UseMySql(builder.Configuration.GetConnectionString("ConexaoMysql"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("ConexaoMysql"))));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddTransient<ILancheRepository, LancheRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
@@ -32,6 +37,7 @@ app.UseStaticFiles();
 app.UseSession();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
