@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(c => c.UseMySql(builder.Configuration.GetConnectionString("ConexaoMysql"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("ConexaoMysql"))));
 builder.Services.AddTransient<ILancheRepository, LancheRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddScoped(x => CarrinhoCompra.GetCarrinhoCompra(x));
